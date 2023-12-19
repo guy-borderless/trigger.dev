@@ -221,8 +221,15 @@ import { TriggerClient, invokeTrigger } from "npm:@trigger.dev/sdk@latest";
 import { Hono } from "npm:hono"; // Make sure to use the npm specifier for hono as well
 ```
 
-Deno doesn't automatically load environment variables from a `.env` file, so you'll need to load them manually using the `dotenv` package:
-
+Deno allows you to pass your `.env` file with a `--env` argument 
+```bash deno
+deno run --allow-env --env index.ts
+```
+or a differently named env file via 
+```bash deno
+deno run --allow-env --env=.staging.env index.ts
+```
+You can also load it in-code with the `dotenv` library like so
 ```ts index.ts
 import { load } from "https://deno.land/std@0.208.0/dotenv/mod.ts";
 const env = await load();
@@ -372,7 +379,7 @@ yarn dlx @trigger.dev/cli@latest dev --client-id hono-client -p 8787 -H localhos
 
 Run your Hono app locally, like you normally would. For example:
 
-```bash
+```bash 
 deno run --allow-net --allow-read --watch index.ts
 ```
 
